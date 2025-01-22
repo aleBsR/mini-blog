@@ -1,51 +1,43 @@
 from post import Post
 from fecha import Fecha
+from datetime import datetime
 
 class Blog:
     def __init__(self):
         self.lista = []
 
     def agregarPost(self):
-        titulo = input("Ingrese titulo: ")
-        contenido = input("Ingrese contenido del Post: ")
+        titulo = self.validar_titulo()
+        contenido = self.validar_contenido()
         post = Post(titulo, contenido)
         self.lista.append(post)
 
     def modificarPost(self, posicion):
-        titulo = input("Ingrese titulo: ")
-        contenido = input("Ingrese contenido del Post: ")
-        print("Ingrese fecha:")
-        anio = input("anio: ")
-        mes = input("mes: ")
-        dia = input("dia: ")
-        fecha_ingresada = Fecha(f"{anio}-{mes}-{dia}").fecha
-        
-        post = Post(titulo, contenido, fecha_ingresada)
+        titulo = self.validar_titulo()
+        contenido = self.validar_contenido()
+        fecha_ingresada = self.ingresar_fecha()
+        post = Post(titulo, contenido, fecha_ingresada.fecha)
         self.lista[posicion] = post
         
     def modificarTitulo(self, posicion):
         contenido = self.lista[posicion].contenido
         fecha = self.lista[posicion].getFecha()
-        titulo = input("Ingrese titulo: ")
+        titulo = self.validar_titulo()
         post = Post(titulo, contenido, fecha)
         self.lista[posicion] = post
         
     def modificarContenido(self, posicion):
         titulo = self.lista[posicion].titulo
         fecha = self.lista[posicion].getFecha()
-        contenido = input("Ingrese el contenido del Post:")
+        contenido = self.validar_contenido()
         post = Post(titulo, contenido, fecha)
         self.lista[posicion] = post
         
     def modificarFecha(self, posicion):
         titulo = self.lista[posicion].titulo
         contenido = self.lista[posicion].contenido
-        print("Ingrese fecha:")
-        anio = input("anio: ")
-        mes = input("mes: ")
-        dia = input("dia: ")
-        fecha_ingresada = Fecha(f"{anio}-{mes}-{dia}").fecha
-        post = Post(titulo, contenido, fecha_ingresada)
+        fecha_ingresada = self.ingresar_fecha()
+        post = Post(titulo, contenido, fecha_ingresada.fecha)
         self.lista[posicion] = post
     
     def mostrarTodos(self):
@@ -115,3 +107,32 @@ class Blog:
                     
         if control == False:
             print (f"No hay fechas ingresadas entre {fecha_ingresada.strftime('%d/%m/%Y')} y {segunda_fecha.strftime('%d/%m/%Y')}")
+            
+    def validar_titulo(self):
+        while True:
+            titulo = input("Ingrese el título: ").strip()
+            if len(titulo) < 5:
+                print("El título debe tener al menos 5 caracteres.")
+            elif len(titulo) > 100:
+                print("El título no debe exceder los 100 caracteres.")
+            else:
+                return titulo
+    def validar_contenido(self):
+        while True:
+            contenido = input("Ingrese el contenido del Post: ").strip()
+            if not contenido:
+                print("El contenido no puede estar vacío.")
+            elif len(contenido) > 500:
+                print("El contenido no debe exceder los 500 caracteres.")
+            else:
+                return contenido
+            
+    def ingresar_fecha(self):
+        while True:
+            try:
+                fecha_ingresada = input("Ingrese la fecha (YYYY-MM-DD): ").strip()
+                return Fecha(fecha_ingresada)  # Intenta crear un objeto Fecha
+            except ValueError:
+                print("Fecha inválida. Asegúrese de usar el formato YYYY-MM-DD.")
+
+
