@@ -7,7 +7,7 @@ class Post:
         self.fecha = Fecha(fecha)
 
     def __str__(self):
-        return f"{self.fecha}: {self.contenido}. Creado: {self.fecha.fecha_formateada}"
+        return f"{self.titulo}: {self.contenido}. Creado: {self.fecha}"
     
     def getFecha(self):
         return self.fecha.fecha

@@ -11,6 +11,12 @@ class Blog:
         post = Post(titulo, contenido)
         self.lista.append(post)
 
+    def modificarPost(self, posicion):
+        titulo = input("Ingrese titulo: ")
+        contenido = input("Ingrese contenido del Post: ")
+        post = Post(titulo, contenido)
+        self.lista[posicion] = post
+
     def mostrarTodos(self):
         for post in self.lista:
             print (post)
@@ -22,11 +28,17 @@ class Blog:
         dia = input("dia: ")
         fecha_ingresada = Fecha(f"{anio}-{mes}-{dia}").fecha
 
+        control = False
+
         print(f"Post de fechas ingresadas a partir de {fecha_ingresada.strftime('%d/%m/%Y')}:")
 
         for post in self.lista:
             if post.getFecha() >= fecha_ingresada:
+                control = True
                 print(post)
+                
+        if control == False:
+            print (f"No hay fechas ingresadas desde {fecha_ingresada.strftime('%d/%m/%Y')}")
                 
     def mostrarHasta(self):
         print("Ingrese fecha:")
@@ -35,12 +47,18 @@ class Blog:
         dia = input("dia: ")
         fecha_ingresada = Fecha(f"{anio}-{mes}-{dia}").fecha
 
+        control = False
+
         print(f"Post de fechas ingresadas hasta {fecha_ingresada.strftime('%d/%m/%Y')}:")
 
         for post in self.lista:
             if post.getFecha() <= fecha_ingresada:
+                control = True
                 print(post)
     
+        if control == False:
+            print (f"No hay fechas ingresadas hasta {fecha_ingresada.strftime('%d/%m/%Y')}")
+            
     def mostrarDesdeHasta(self):
         print("Ingrese fecha desde la que quiere buscar:")
         anio = input("anio: ")
@@ -54,9 +72,15 @@ class Blog:
         dia2 = input("dia: ")
         segunda_fecha = Fecha(f"{anio2}-{mes2}-{dia2}").fecha
 
+        control = False
+
         print(f"Post de fechas ingresadas a partir de {fecha_ingresada.strftime('%d/%m/%Y')} hasta {segunda_fecha.strftime('%d/%m/%Y')}:")
 
         for post in self.lista:
             if post.getFecha() >= fecha_ingresada:
                 if post.getFecha() <= segunda_fecha:
+                    control = True
                     print(post)
+                    
+        if control == False:
+            print (f"No hay fechas ingresadas entre {fecha_ingresada.strftime('%d/%m/%Y')} y {segunda_fecha.strftime('%d/%m/%Y')}")
