@@ -14,9 +14,40 @@ class Blog:
     def modificarPost(self, posicion):
         titulo = input("Ingrese titulo: ")
         contenido = input("Ingrese contenido del Post: ")
-        post = Post(titulo, contenido)
+        print("Ingrese fecha:")
+        anio = input("anio: ")
+        mes = input("mes: ")
+        dia = input("dia: ")
+        fecha_ingresada = Fecha(f"{anio}-{mes}-{dia}").fecha
+        
+        post = Post(titulo, contenido, fecha_ingresada)
         self.lista[posicion] = post
-
+        
+    def modificarTitulo(self, posicion):
+        contenido = self.lista[posicion].contenido
+        fecha = self.lista[posicion].getFecha()
+        titulo = input("Ingrese titulo: ")
+        post = Post(titulo, contenido, fecha)
+        self.lista[posicion] = post
+        
+    def modificarContenido(self, posicion):
+        titulo = self.lista[posicion].titulo
+        fecha = self.lista[posicion].getFecha()
+        contenido = input("Ingrese el contenido del Post:")
+        post = Post(titulo, contenido, fecha)
+        self.lista[posicion] = post
+        
+    def modificarFecha(self, posicion):
+        titulo = self.lista[posicion].titulo
+        contenido = self.lista[posicion].contenido
+        print("Ingrese fecha:")
+        anio = input("anio: ")
+        mes = input("mes: ")
+        dia = input("dia: ")
+        fecha_ingresada = Fecha(f"{anio}-{mes}-{dia}").fecha
+        post = Post(titulo, contenido, fecha_ingresada)
+        self.lista[posicion] = post
+    
     def mostrarTodos(self):
         for post in self.lista:
             print (post)

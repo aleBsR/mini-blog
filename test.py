@@ -7,7 +7,10 @@ def main():
         print("1. Ingresar un nuevo Post")
         print("2. Modificar un Post")
         print("3. Mostrar todos los Post")
-        print("4. Salir")
+        print("4. Mostrar Posts a partir de una Fecha indicada")
+        print("5. Mostrar Posts hasta una fecha indicada")
+        print("6. Mostrar Posts desde una fecha hasta otra fecha indicada")
+        print("7. Salir")
 
         opcion = input("Seleccione una opción: ")
 
@@ -24,7 +27,8 @@ def main():
                     print(f"{i + 1}. {v}")
                 indice = int(input("Seleccione el Post a modificar: ")) - 1
                 if 0 <= indice < len(blog.lista):
-                    blog.modificarPost(indice)
+                    #blog.modificarPost(indice)
+                    menu_modificar_post(blog, indice)
                 else:
                     print("Índice inválido.")
         elif opcion == "3":
@@ -57,6 +61,34 @@ def main():
             break
         else:
             print("Opción no válida.")
+            
+def menu_modificar_post(blog, indice):
+    while True:
+        print("\nMenu de modificar Posts:")
+        print("1. Modificar Post completo")
+        print("2. Modificar Titulo")
+        print("3. Modificar Contenido")
+        print("4. Modificar Fecha")
+        print("5. Volver al Menu Principal")
+        opcion = input("Seleccione una opción: ")
+        if opcion == "1":
+            blog.modificarPost(indice)
+            break
+        elif opcion == "2":
+            blog.modificarTitulo(indice)
+            break
+        elif opcion == "3":
+            blog.modificarContenido(indice)
+            break
+        elif opcion == "4":
+            blog.modificarFecha(indice)
+            break
+        elif opcion == "5":
+            print("Volviendo...")
+            break
+        else:
+            print("opcion no valida.")
+        
     
 if __name__ == "__main__":
     main()
